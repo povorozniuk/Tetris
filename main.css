@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Barrio&family=Varela&display=swap');
+
+body,html{
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action:none;
+    font-family: 'Barrio', cursive;
+}
+
+.container{
+    display: flex;
+    max-height: 60rem;
+}
+
+.controls{
+    /* margin-left: 1rem; */
+    padding: 1.5rem;
+    /* border: 1px solid black; */
+    width: 100%;
+    /* height: 20rem; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.screen{
+    display: grid;
+    /* border: 1px solid black; */
+}
+
+.screen > .screen__square {
+    border: 1px solid white;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.screen > .screen__square--occupied {
+    background-color: rgb(255, 251, 0);
+    /* background-color: rgb(0, 140, 255); */
+}
+
+.screen > .screen__square--moving {
+    background-color: yellow;
+}
+
+.screen > .anchor {
+    background-color: red;
+}
+
+.start-screen .start-screen-text {
+    animation: 5000ms whiteToBlack forwards;
+    background-color: black;
+}
+
+.start-screen:hover > .screen__square {
+    /* background-color: black; */
+    animation: 1500ms whiteToBlack forwards;
+    border: 1px solid black;
+}
+
+.start-screen:hover .start-screen-text {
+    animation: 1500ms blackToWhite forwards;
+    /* background-color: white; */
+}
+
+.screen__square--game-in-progress{
+    background-color: black;
+    border: 1px solid black !important;
+}
+
+.next-figure {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.next-figure > div{
+    display: grid;
+    grid-template-columns: repeat(4, 1rem);
+    grid-template-rows: repeat(4, 1rem);
+    /* background-color: aliceblue; */
+    border: 1px solid black;
+}
+
+.next-figure > span{
+    font-size: 2.5rem;
+}
+
+.next-figure-cell{
+    border: 1px solid black;
+}
+
+.next-figure-cell-occupied{
+    background-color: black !important;
+}
+
+@keyframes displayScore {
+    0%{
+        transform: translateX(-50rem);
+    }
+    15%{
+        transform: translateX(0);
+    }
+    75%{
+        transform: translateX(0);
+    }
+    76%{
+        transform: translateX(50rem);
+    }
+    100%{
+        transform: translateX(50rem);
+    }
+}
+
+.game-over-credit{
+    display: none;
+}
+
+.final-score-credit{
+    display: none;
+}
+
+.game-over-credit-active{
+    text-align: right;
+    position: fixed;
+    color: white;
+    animation: 2500ms displayScore ease-in forwards;
+    transition: 500ms ease;
+}
+
+.game-over-credit-active > h1 {
+    font-size: 7rem;
+    margin: 0;
+}
+.final-score-credit-active{
+    text-align: right;
+    position: fixed;
+    color: white;
+    animation: 2500ms displayScore ease-in forwards;
+    transition: 500ms ease;
+}
+
+.final-score-credit-active > h1:first-of-type{
+    font-size: 5rem;
+    margin: 0;
+}
+
+.final-score-credit-active > h1:last-of-type{
+    font-size: 10rem;
+    margin: 0;
+}
+
+.controls > div{
+    transition: 500ms ease-in;
+}
+
+@media (max-width: 40rem) {
+    body{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .container{
+        flex-direction: column;
+        height: 100%;
+        max-height: 35rem;
+    }
+    .controls{
+        font-size: 0.8rem;
+        /* height: auto !important; */
+        padding: 0;
+        flex-direction: row;
+        justify-content: space-around;
+        /* align-items: flex-start; */
+    }
+    .next-figure{
+        padding: 0;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .next-figure > div{
+        grid-template-columns: repeat(4, 0.5rem);
+        grid-template-rows: repeat(4, 0.5rem);
+    }
+
+    .screen > .screen__square {
+        width: 1rem;
+        height: 1rem;
+    }
+}
+
+
+
+@keyframes blackToWhite { 
+    0%{
+        background-color: black;
+        /* border: 1px solid white; */
+    }
+    50%{
+        background-color: white;
+        /* border: 1px solid black; */
+    }
+    100%{
+        background-color: white;
+    }
+}
+
+@keyframes whiteToBlack { 
+    0%{
+        background-color: white;
+        /* border: 1px solid black; */
+    }
+    50%{
+        background-color: black;
+    }
+    100%{
+        background-color: black;
+        /* border: 1px solid white; */
+    }
+}
