@@ -277,7 +277,7 @@ function rotateLeft(shape) {
     // })
 
     // let movedLeftByXSquares = 0;
-    let movedUpByXSquares = 0;
+
 
     let maxIterations = 4;
     // let currentIterationMoveLeft = 0;
@@ -324,7 +324,7 @@ function rotateLeft(shape) {
         isFirstRowEmpty = result[0].every(cell => {
             return cell == 0
         });
-        movedUpByXSquares++;
+        // movedUpByXSquares++;
     }
     // console.log(`Moved up by ${movedUpByXSquares} squares`);
     // console.log(`Moved left by ${movedLeftByXSquares} squares`);
@@ -351,25 +351,205 @@ let isAnchorDotVisible = true;
 let desiredNumberOfRows = 24;
 let desiredNumberOfColumns = 13;
 
+let smallCellSize = getComputedStyle(document.body).getPropertyValue('--smallCell');
+let standardCellSize = getComputedStyle(document.body).getPropertyValue('--standardCell');
+
+
 
 // HTML ELEMENTS
 let controls = document.querySelector('.controls')
+
+// let moveLeftArea = document.querySelector('.btn-move-left')
+// let moveRightArea = document.querySelector('.btn-move-right')
+
 let nextTetrisPieceArea = document.querySelector('.next-figure');
 
 let level = document.querySelector('.level');
 let score = document.querySelector('.score');
 
+let mobileScore = document.querySelector('.mobile-score > h1');
+
 let nextFigureArea1 = document.querySelectorAll('.next-figure-1 > div');
 let nextFigureArea2 = document.querySelectorAll('.next-figure-2 > div');
 let nextFigureArea3 = document.querySelectorAll('.next-figure-3 > div');
 
-let gameOverCredit = document.querySelector('.game-over-credit');
-let finalScoreCredit = document.querySelector('.final-score-credit');
-let finalScoreCreditScoreValue = document.querySelector('.final-score-credit-score-value');
+// let gameOverCredit = document.querySelector('.game-over-credit');
+// let finalScoreCredit = document.querySelector('.final-score-credit');
+// let finalScoreCreditScoreValue = document.querySelector('.final-score-credit-score-value');
 
 
-controls.style.height = `${desiredNumberOfRows * 1}rem`;
-nextTetrisPieceArea.style.height = `${desiredNumberOfRows * 1}rem`;
+let actionDown = document.querySelector('.action-down');
+let actionLeft = document.querySelector('.action-left');
+let actionRight = document.querySelector('.action-right');
+let actionRotate = document.querySelector('.action-rotate');
+
+let timerValue = 0
+let interval;
+
+const mousePress = (direction) => {
+    keydown({ key: direction });
+    interval = setInterval(() => {
+        timerValue++
+        console.log(timerValue)
+        if (timerValue > 3) {
+            keydown({ key: direction })
+        }
+
+    }, 100)
+}
+
+const mouseRelease = () => {
+    clearInterval(interval)
+    timerValue = 0
+}
+
+actionDown.addEventListener('mousedown', e => {
+    e.preventDefault()
+    keydown({ key: 'ArrowDown' })
+})
+
+actionDown.addEventListener('mouseup', e => {
+    e.preventDefault()
+    keyup({ key: 'ArrowDown' })
+});
+
+
+actionDown.addEventListener('touchstart', e => {
+    e.preventDefault()
+    keydown({ key: 'ArrowDown' })
+    console.log('Touch Start ' + new Date() / 1000)
+});
+
+actionDown.addEventListener('touchend', e => {
+    e.preventDefault()
+    keyup({ key: 'ArrowDown' })
+    console.log('Touch End ' + new Date() / 1000)
+});
+
+
+
+
+actionLeft.addEventListener('mousedown', e => {
+    e.preventDefault()
+    keydown('ArrowLeft')
+    mousePress('ArrowLeft');
+});
+actionLeft.addEventListener('mouseup', e => {
+    e.preventDefault()
+    mouseRelease();
+});
+
+actionLeft.addEventListener('touchstart', e => {
+    e.preventDefault()
+    keydown('ArrowLeft')
+    mousePress('ArrowLeft');
+});
+actionLeft.addEventListener('touchend', e => {
+    e.preventDefault()
+    mouseRelease();
+});
+
+// actionLeft.addEventListener('touchstart', e => {
+//     e.preventDefault()
+//     keydown({key: 'ArrowLeft'})
+//     console.log('Touch Start ' + new Date() / 1000)
+// });
+
+// actionLeft.addEventListener('touchend', e => {
+//     e.preventDefault()
+//     keyup({key: 'ArrowLeft'})
+//     console.log('Touch End ' + new Date() / 1000)
+// });
+
+actionRight.addEventListener('mousedown', e => {
+    e.preventDefault()
+    keydown('ArrowRight')
+    mousePress('ArrowRight');
+});
+
+actionRight.addEventListener('mouseup', e => {
+    e.preventDefault()
+    mouseRelease();
+});
+
+actionRight.addEventListener('touchstart', e => {
+    e.preventDefault()
+    keydown('ArrowRight')
+    mousePress('ArrowRight');
+});
+
+actionRight.addEventListener('touchend', e => {
+    e.preventDefault()
+    mouseRelease();
+});
+
+
+actionRotate.addEventListener('mousedown', e => {
+    e.preventDefault()
+    keydown({ key: 'ArrowUp' })
+});
+
+actionRotate.addEventListener('mouseup', e => {
+    e.preventDefault()
+    keyup({ key: 'ArrowUp' })
+});
+
+actionRotate.addEventListener('touchstart', e => {
+    e.preventDefault()
+    keydown({ key: 'ArrowUp' })
+});
+
+actionRotate.addEventListener('touchend', e => {
+    e.preventDefault()
+    keyup({ key: 'ArrowUp' })
+});
+// let actionButtonRotate = document.getElementById('action-btn-rotate');
+// let actionButtonMoveLeft = document.getElementById('action-btn-move-left');
+// let actionButtonMoveRight = document.getElementById('action-btn-move-right');
+// let actionButtonMoveDown = document.getElementById('action-btn-move-down');
+
+
+// let test = document.querySelector('.test');
+
+// test.addEventListener('mousedown', e => {
+//     console.log('Inside')
+//     test.style.backgroundColor = 'red';
+// })
+
+// test.addEventListener('mouseup', e => {
+//     console.log('Leaving')
+//     test.style.backgroundColor = 'black';
+// })
+
+
+// actionButtonRotate.addEventListener('click', e => {
+//     keydown({key: 'ArrowUp'})
+// })
+
+// actionButtonMoveLeft.addEventListener('click', e => {
+//     keydown({key: 'ArrowLeft'})
+// })
+
+// actionButtonMoveRight.addEventListener('click', e => {
+//     keydown({key: 'ArrowRight'})
+// })
+
+// actionButtonMoveDown.addEventListener('mousedown', e => {
+//     console.log('Down - press')
+//     keydown({key: 's'})
+// })
+
+
+// actionButtonMoveDown.addEventListener('mouseup', e => {
+//     console.log('Down - release')
+//     keyup({key: 's'})
+// })
+
+// controls.style.height = `${desiredNumberOfRows * 1}rem`;
+// nextTetrisPieceArea.style.height = `${desiredNumberOfRows * 1}rem`;
+
+// moveLeftArea.style.height = `${desiredNumberOfRows * 1}rem`;
+// moveRightArea.style.height = `${desiredNumberOfRows * 1}rem`;
 
 let middleSquare = Math.floor(desiredNumberOfColumns / 2);
 
@@ -398,14 +578,51 @@ let state = {
         pieceJustAppeared: true
     },
     controls: {
-        level: 1,
+        level: 0,
         score: 0
     },
     upcomingTetrisPieces: []
 }
 
 let screen = document.querySelector('.screen');
-screen.style.gridTemplateColumns = `repeat(${desiredNumberOfColumns}, auto)`;
+
+let mobileLevelElements = {
+    1: document.querySelector('.mobile-level-value-1'),
+    2: document.querySelector('.mobile-level-value-2'),
+    3: document.querySelector('.mobile-level-value-3'),
+    4: document.querySelector('.mobile-level-value-4'),
+    5: document.querySelector('.mobile-level-value-5'),
+    6: document.querySelector('.mobile-level-value-6'),
+    7: document.querySelector('.mobile-level-value-7'),
+    8: document.querySelector('.mobile-level-value-8'),
+    9: document.querySelector('.mobile-level-value-9'),
+    10: document.querySelector('.mobile-level-value-10')
+}
+
+
+function tearDownLevelBar(level){
+    mobileLevelElements[level].classList.remove('mobile-level-cell-white-disappears')
+    mobileLevelElements[level].classList.remove('mobile-level-rainbow')
+}
+
+
+window.onresize = resizeCells;
+
+//TODO set height properly
+function resizeCells() {
+    if (window.matchMedia('(max-width: 42rem)').matches) {
+        // nextTetrisPieceArea.style.height = "auto";
+        screen.style.gridTemplateColumns = `repeat(${desiredNumberOfColumns}, 1.3rem)`;
+        screen.style.gridTemplateRows = `repeat(${desiredNumberOfRows}, 1.3rem)`;
+    }else{
+        screen.style.gridTemplateColumns = `repeat(${desiredNumberOfColumns}, 2rem)`;
+        screen.style.gridTemplateRows = `repeat(${desiredNumberOfRows}, 2rem)`;
+        // nextTetrisPieceArea.style.height = `${desiredNumberOfRows * 1}rem`;
+    }
+}
+
+resizeCells();
+
 
 // let numberOfColumns = window.getComputedStyle(screen).getPropertyValue("grid-template-columns").split(" ").length;
 // let numberOfRows = window.getComputedStyle(screen).getPropertyValue("grid-template-rows").split(" ").length;
@@ -679,6 +896,11 @@ async function endGame() {
     await delay(delayMs)
     cleanUpNextFigureBoard(nextFigureArea3)
     await delay(delayMs)
+
+    for(let i=10;i>0;i--){
+        tearDownLevelBar(i);
+        await delay(delayMs)
+    }
     for (let i = 0; i < fallingTetrisPieceSquares.length; i++) {
         removeMovingTetrisPieceSquare(fallingTetrisPieceSquares[i])
         await delay(delayMs)
@@ -688,7 +910,7 @@ async function endGame() {
         await delay(delayMs)
     }
 
-    finalScoreCreditScoreValue.textContent = state.controls.score;
+    // finalScoreCreditScoreValue.textContent = state.controls.score;
     // gameOverCredit.classList.remove('game-over-credit')
     // gameOverCredit.classList.add('game-over-credit-active')
     // await delay(2500)
@@ -733,12 +955,14 @@ async function endGame() {
     // await delay(3000);
     screen.classList.add('start-screen');
 
-    state.controls.level = 1;
+    // state.controls.level = 1;
     state.controls.score = 0;
+    state.controls.level = 0;
 
     state.speed.startingSpeed = 930;
     level.textContent = `Level: ${state.controls.level}`
     score.textContent = `Score: ${state.controls.score}`
+    mobileScore.textContent = state.controls.score;
     state.isAlowedToStartNewGame = true;
     // }
 
@@ -760,7 +984,7 @@ async function endGame() {
 //   }
 
 function moveDown() {
-    console.log('Moving down + ' + new Date())
+    // console.log('Moving down + ' + new Date())
     let futureCoordinate = getShapeCoordinatesMoveDown();
     let hasSpaceToMoveDown = canMoveDown(futureCoordinate)
     if (!state.isGameOver && state.tetrisPiece.anchorCell[0] === 0 && !hasSpaceToMoveDown) {
@@ -979,57 +1203,142 @@ let touchendX = 0
 let touchstartY = 0;
 let touchendY = 0;
 
+let previousX = 0;
+let previousY = 0;
 
-document.addEventListener('touchstart', e => {
-    touchstartX = e.changedTouches[0].screenX;
-    touchstartY = e.changedTouches[0].screenY;
-})
-
-document.addEventListener('touchend', e => {
-    touchendX = e.changedTouches[0].screenX;
-    touchendY = e.changedTouches[0].screenY;
-
-    let x = Math.abs(touchendX - touchstartX);
-    let y = Math.abs(touchendY - touchstartY);
+let previousActionTimeSeconds = 0;
+let isPreformingAction = false;
 
 
-    let coordinates;
-    if (x > y) {
-        if (touchendX < touchstartX) {
-            //swiped left
-            state.reachedRightSide = false;
-            coordinates = getShapeCoordinatesMoveLeft();
-            let isAllowedToMoveLeft = canMoveLeft(coordinates);
-            if (isAllowedToMoveLeft) {
-                undraw();
-                draw(coordinates, 'left');
-            }
-        } else if (touchendX > touchstartX) {
-            //swiped right
-            state.reachedLeftSide = false;
-            coordinates = getShapeCoordinatesMoveRight();
-            let isAllowedToMoveRight = canMoveRight(coordinates);
-            if (isAllowedToMoveRight) {
-                undraw();
-                draw(coordinates, 'right');
-            }
-        }
-    } else if (y > x) {
-        if (touchendY < touchstartY) {
-            //swipedUp
-        } else if (touchendY > touchstartY) {
-            //swipeDown
-            clearInterval(timer)
-            timer = setInterval(moveDown, state.speed.fallDownSpeed);
-            state.speed.isArtificiallyIncreased = true;
-        }
-    }
-})
 
-//Perhaps do something with this??
-document.body.addEventListener("touchmove", ev => {
-    console.log(ev);
-});
+// document.addEventListener("touchmove", ev => {
+
+//     let currentTimeInSeconds = new Date(ev.timeStamp) / 1000;
+
+
+//     let currentX = ev.touches[0].screenX;
+//     let currentY = ev.touches[0].screenY;
+
+//     let diff = Math.abs(currentTimeInSeconds - previousActionTimeSeconds);
+//     console.log(isPreformingAction)
+//     if (diff > 0.5 && !isPreformingAction) {
+//         console.log('Diff ' + diff)
+//         isPreformingAction = true;
+
+
+//         console.log('TSX ' + touchstartX);
+//         console.log('TSY ' + touchstartY);
+
+//         if (previousX != 0 && previousY != 0) {
+//             let Xdiff = Math.abs(currentX - previousX);
+//             let Ydiff = Math.abs(currentY - previousY);
+
+//             if(Xdiff < Ydiff){
+//                 if (touchstartY < currentY) {
+//                     console.log('Down')
+//                     keydown({ key: 'ArrowDown' })
+//                 } 
+//             }
+//             // if (Xdiff > Ydiff) {
+//             //     if (touchstartX < currentX) {
+//             //         console.log('Right')
+//             //         keydown({ key: 'ArrowRight' })
+//             //     } else {
+//             //         keydown({ key: 'ArrowLeft' })
+//             //         console.log('Left')
+//             //     }
+//             // } else {
+//             //     if (touchstartY < currentY) {
+//             //         console.log('Down')
+//             //         keydown({ key: 'ArrowDown' })
+//             //     }
+//             // }
+//             // if(Xdiff > D)
+//             // console.log("Xdiff " + Xdiff);
+//             // console.log("Ydiff " + Ydiff);
+//             // console.log('X ' + ev.touches[0].screenX)
+//             // console.log('Y ' + ev.touches[0].screenY)
+//             previousActionTimeSeconds = new Date(ev.timeStamp) / 1000;
+//             previousX = currentX;
+//             previousY = currentY;
+//             console.log(ev);
+//         }else{
+//             previousX = currentX;
+//             previousY = currentY;
+//         }
+//         isPreformingAction = false;
+
+//     }
+// });
+
+// document.addEventListener('touchstart', e => {
+//     console.log('Touch Start')
+//     touchstartX = e.changedTouches[0].screenX;
+//     touchstartY = e.changedTouches[0].screenY;
+// })
+
+// let buttonMoveLeft = document.getElementById('btn-move-left')
+// let buttonMoveRight = document.getElementById('btn-move-right')
+
+
+// buttonMoveLeft.addEventListener('click', e => {
+//     keydown({ key: 'ArrowLeft' })
+// })
+
+// buttonMoveRight.addEventListener('click', e => {
+//     keydown({ key: 'ArrowRight' })
+// })
+
+// document.addEventListener('touchend', e => {
+
+//     console.log('Touch End')
+
+//     keyup({ key: 'ArrowDown' })
+
+//     touchendX = e.changedTouches[0].screenX;
+//     touchendY = e.changedTouches[0].screenY;
+
+//     previousX = 0;
+//     previousY = 0;
+
+//     let x = Math.abs(touchendX - touchstartX);
+//     let y = Math.abs(touchendY - touchstartY);
+
+
+//     let coordinates;
+//     if (x > y) {
+//         // if (touchendX < touchstartX) {
+//         //     //swiped left
+//         //     state.reachedRightSide = false;
+//         //     coordinates = getShapeCoordinatesMoveLeft();
+//         //     let isAllowedToMoveLeft = canMoveLeft(coordinates);
+//         //     if (isAllowedToMoveLeft) {
+//         //         undraw();
+//         //         draw(coordinates, 'left');
+//         //     }
+//         // } else if (touchendX > touchstartX) {
+//         //     //swiped right
+//         //     state.reachedLeftSide = false;
+//         //     coordinates = getShapeCoordinatesMoveRight();
+//         //     let isAllowedToMoveRight = canMoveRight(coordinates);
+//         //     if (isAllowedToMoveRight) {
+//         //         undraw();
+//         //         draw(coordinates, 'right');
+//         //     }
+//         // }
+//     } else if (y > x) {
+//         // if (touchendY < touchstartY) {
+//         //     //swipedUp
+//         // } else if (touchendY > touchstartY) {
+//         //     //swipeDown
+//         //     clearInterval(timer)
+//         //     timer = setInterval(moveDown, state.speed.fallDownSpeed);
+//         //     state.speed.isArtificiallyIncreased = true;
+//         // }
+//     } else {
+//         // keydown({ key: 'ArrowUp' })
+//     }
+// })
 
 function keyup(event) {
     if (!state.isGameOver) {
@@ -1097,10 +1406,26 @@ function keydown(event) {
     }
 }
 
+
 function updateGameStats() {
     state.controls.score += 1;
     score.textContent = `Score: ${state.controls.score}`
+    mobileScore.textContent = state.controls.score;
 }
+
+let levelBar = document.querySelector('.mobile-level')
+
+function changeMobileLevel(){
+    mobileLevelElements[state.controls.level].classList.add('mobile-level-cell-white-disappears')
+    if(state.controls.level === 10){
+        levelBar.classList.add('mobile-level-rainbow')
+        // for(let i=1;i<=10;i++){
+        //     mobileLevelElements[i].classList.add('mobile-level-rainbow')
+        // }
+    }
+}
+
+
 
 function updateGameSpeed() {
     // console.log("Score " + state.controls.score)
@@ -1114,6 +1439,7 @@ function updateGameSpeed() {
             // console.log(`Speed ${state.speed.startingSpeed}`)
             clearInterval(timer)
             timer = setInterval(moveDown, state.speed.startingSpeed)
+            changeMobileLevel()
             level.textContent = `Level: ${state.controls.level}`
             // console.log('Level after ' + state.controls.level)
         }
@@ -1122,6 +1448,8 @@ function updateGameSpeed() {
 
 function startGame() {
     if (state.isGameOver && state.isAlowedToStartNewGame) {
+        state.controls.level = 1;
+        level.textContent = "Level: 1"
         state.isGameOver = false;
         screen.classList.remove('start-screen');
         screenSquares.forEach(cell => { cell.classList.add('screen__square--game-in-progress') });
@@ -1133,6 +1461,8 @@ function startGame() {
         state.upcomingTetrisPieces[0] = piece1;
         state.upcomingTetrisPieces[1] = piece2;
         state.upcomingTetrisPieces[2] = piece3;
+
+        changeMobileLevel()
 
         state.tetrisPiece.currentTetrisPiece = grabRandomTetrisPiece();
         let coordinates = convertShapeToCoordinates(state.tetrisPiece.currentTetrisPiece, false, true)
