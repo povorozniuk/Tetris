@@ -218,35 +218,6 @@ let scoreValueSquaresMapping = {
 }
 
 let tetrisPieces = [tetrisPiece1, tetrisPiece1Reflected, tetrisPiece2, tetrisPiece2Reflected, tetrisPiece3, tetrisPiece4, tetrisPiece5];
-// let tetrisPieces = [tetrisPiece1];
-
-// [11, 12, 13, 14],
-// [21, 22, 23, 24],
-// [31, 32, 33, 34],
-// [41, 42, 43, 44]
-
-// [14, 24, 34, 44],
-// [13, 23, 33, 43],
-// [12, 22, 32, 42],
-// [11, 21, 31, 41]
-
-// [XX, XX, XX, XX],
-// [XX, XX, XX, XX],
-// [XX, XX, XX, XX],
-// [XX, XX, XX, XX]
-
-// [XX, XX, XX, XX],
-// [XX, XX, XX, XX],
-// [XX, XX, XX, XX],
-// [XX, XX, XX, XX]
-
-// [0][0] -> [arr.length-1][index] //0
-// [0][1] -> [arr.length-2][index] //1
-// [0][2] -> [arr.length-3][index] //2
-// [0][3] -> [arr.length-4][index] //3
-// 
-// [1][0] -> [arr.length-1][1]
-// [1][1] -> [arr.length-2][1]
 
 function getRandomRotation(shape) {
     let numberOfPossibleRotations = 4;
@@ -270,42 +241,9 @@ function rotateLeft(shape) {
         result.push(newRow)
     }
 
-    // move left if the left side is empty
-
-    // let isLeftSideEmpty = result.every(shapeRow => {
-    // return shapeRow[0] == 0;
-    // })
-
-    // let movedLeftByXSquares = 0;
-
 
     let maxIterations = 4;
-    // let currentIterationMoveLeft = 0;
     let currentIterationMoveUp = 0;
-
-    // while (isLeftSideEmpty && currentIterationMoveLeft <= maxIterations) {
-    //     console.log(`isLeftSideEmpty ${isLeftSideEmpty}`)
-    //     let resultMovedLeft = []
-    //     for (let rowIndex = 0; rowIndex < result.length; rowIndex++) {
-    //         updatedRow = []
-    //         for (let cellIndex = 0; cellIndex < result[rowIndex].length; cellIndex++) {
-    //             if (cellIndex > 0) {
-    //                 updatedRow[cellIndex - 1] = result[rowIndex][cellIndex]
-    //             }
-    //         }
-    //         updatedRow[result[rowIndex].length - 1] = 0;
-    //         resultMovedLeft.push(updatedRow);
-    //     }
-    //     result = resultMovedLeft;
-    //     movedLeftByXSquares++;
-    //     currentIterationMoveLeft++;
-    //     isLeftSideEmpty = result.every(shapeRow => {
-    //         return shapeRow[0] == 0;
-    //     })
-
-    // }
-
-    // move up 1 square if first row is empty
 
     let isFirstRowEmpty = result[0].every(cell => {
         return cell == 0
@@ -331,20 +269,6 @@ function rotateLeft(shape) {
     return result;
 }
 
-// let zero = tetrisPieceLShape[0]
-// let ninety = rotateLeft(zero);
-// let oneEighty = rotateLeft(ninety);
-// let twoSeventy = rotateLeft(oneEighty);
-
-// console.log("Zero degrees")
-// console.log(zero)
-// console.log("Ninety degrees")
-// console.log(ninety)
-// console.log("One Eighty degrees")
-// console.log(oneEighty)
-// console.log("Two Seventy degrees")
-// console.log(twoSeventy)
-
 let isAnchorDotVisible = true;
 
 
@@ -359,9 +283,6 @@ let standardCellSize = getComputedStyle(document.body).getPropertyValue('--stand
 // HTML ELEMENTS
 let controls = document.querySelector('.controls')
 
-// let moveLeftArea = document.querySelector('.btn-move-left')
-// let moveRightArea = document.querySelector('.btn-move-right')
-
 let nextTetrisPieceArea = document.querySelector('.next-figure');
 
 let level = document.querySelector('.level');
@@ -372,11 +293,6 @@ let mobileScore = document.querySelector('.mobile-score > h1');
 let nextFigureArea1 = document.querySelectorAll('.next-figure-1 > div');
 let nextFigureArea2 = document.querySelectorAll('.next-figure-2 > div');
 let nextFigureArea3 = document.querySelectorAll('.next-figure-3 > div');
-
-// let gameOverCredit = document.querySelector('.game-over-credit');
-// let finalScoreCredit = document.querySelector('.final-score-credit');
-// let finalScoreCreditScoreValue = document.querySelector('.final-score-credit-score-value');
-
 
 let actionDown = document.querySelector('.action-down');
 let actionLeft = document.querySelector('.action-left');
@@ -426,9 +342,6 @@ actionDown.addEventListener('touchend', e => {
     console.log('Touch End ' + new Date() / 1000)
 });
 
-
-
-
 actionLeft.addEventListener('mousedown', e => {
     e.preventDefault()
     keydown('ArrowLeft')
@@ -448,18 +361,6 @@ actionLeft.addEventListener('touchend', e => {
     e.preventDefault()
     mouseRelease();
 });
-
-// actionLeft.addEventListener('touchstart', e => {
-//     e.preventDefault()
-//     keydown({key: 'ArrowLeft'})
-//     console.log('Touch Start ' + new Date() / 1000)
-// });
-
-// actionLeft.addEventListener('touchend', e => {
-//     e.preventDefault()
-//     keyup({key: 'ArrowLeft'})
-//     console.log('Touch End ' + new Date() / 1000)
-// });
 
 actionRight.addEventListener('mousedown', e => {
     e.preventDefault()
@@ -503,53 +404,6 @@ actionRotate.addEventListener('touchend', e => {
     e.preventDefault()
     keyup({ key: 'ArrowUp' })
 });
-// let actionButtonRotate = document.getElementById('action-btn-rotate');
-// let actionButtonMoveLeft = document.getElementById('action-btn-move-left');
-// let actionButtonMoveRight = document.getElementById('action-btn-move-right');
-// let actionButtonMoveDown = document.getElementById('action-btn-move-down');
-
-
-// let test = document.querySelector('.test');
-
-// test.addEventListener('mousedown', e => {
-//     console.log('Inside')
-//     test.style.backgroundColor = 'red';
-// })
-
-// test.addEventListener('mouseup', e => {
-//     console.log('Leaving')
-//     test.style.backgroundColor = 'black';
-// })
-
-
-// actionButtonRotate.addEventListener('click', e => {
-//     keydown({key: 'ArrowUp'})
-// })
-
-// actionButtonMoveLeft.addEventListener('click', e => {
-//     keydown({key: 'ArrowLeft'})
-// })
-
-// actionButtonMoveRight.addEventListener('click', e => {
-//     keydown({key: 'ArrowRight'})
-// })
-
-// actionButtonMoveDown.addEventListener('mousedown', e => {
-//     console.log('Down - press')
-//     keydown({key: 's'})
-// })
-
-
-// actionButtonMoveDown.addEventListener('mouseup', e => {
-//     console.log('Down - release')
-//     keyup({key: 's'})
-// })
-
-// controls.style.height = `${desiredNumberOfRows * 1}rem`;
-// nextTetrisPieceArea.style.height = `${desiredNumberOfRows * 1}rem`;
-
-// moveLeftArea.style.height = `${desiredNumberOfRows * 1}rem`;
-// moveRightArea.style.height = `${desiredNumberOfRows * 1}rem`;
 
 let middleSquare = Math.floor(desiredNumberOfColumns / 2);
 
@@ -608,24 +462,19 @@ function tearDownLevelBar(level){
 
 window.onresize = resizeCells;
 
-//TODO set height properly
+
 function resizeCells() {
     if (window.matchMedia('(max-width: 42rem)').matches) {
-        // nextTetrisPieceArea.style.height = "auto";
         screen.style.gridTemplateColumns = `repeat(${desiredNumberOfColumns}, 1.3rem)`;
         screen.style.gridTemplateRows = `repeat(${desiredNumberOfRows}, 1.3rem)`;
     }else{
         screen.style.gridTemplateColumns = `repeat(${desiredNumberOfColumns}, 2rem)`;
         screen.style.gridTemplateRows = `repeat(${desiredNumberOfRows}, 2rem)`;
-        // nextTetrisPieceArea.style.height = `${desiredNumberOfRows * 1}rem`;
     }
 }
 
 resizeCells();
 
-
-// let numberOfColumns = window.getComputedStyle(screen).getPropertyValue("grid-template-columns").split(" ").length;
-// let numberOfRows = window.getComputedStyle(screen).getPropertyValue("grid-template-rows").split(" ").length;
 
 const embedDivsIntoScreen = () => {
     let totalCells = desiredNumberOfRows * desiredNumberOfColumns;
@@ -813,7 +662,6 @@ function collapseOccupiedCellsDown(rowNumberCollapsed) {
 
 function identifyRowsWhichCanBeRemoved() {
     let rowsWhichCanBeRemoved = [];
-    // let checkedRows = 0;
     for (let row = 0; row <= desiredNumberOfRows - 1; row++) {
         let currentRow = board[row];
         if (currentRow.some(square => !square.classList.contains("screen__square--occupied"))) {
@@ -910,18 +758,6 @@ async function endGame() {
         await delay(delayMs)
     }
 
-    // finalScoreCreditScoreValue.textContent = state.controls.score;
-    // gameOverCredit.classList.remove('game-over-credit')
-    // gameOverCredit.classList.add('game-over-credit-active')
-    // await delay(2500)
-    // gameOverCredit.classList.add('game-over-credit')
-    // gameOverCredit.classList.remove('game-over-credit-active')
-    // finalScoreCredit.classList.remove('final-score-credit')
-    // finalScoreCredit.classList.add('final-score-credit-active')
-    // await delay(2500)
-    // finalScoreCredit.classList.add('final-score-credit')
-    // finalScoreCredit.classList.remove('final-score-credit-active')
-
     drawGameOver(convertShapeToCoordinates(gameOverTextSquares, true, false))
     await delay(2000)
 
@@ -948,14 +784,9 @@ async function endGame() {
 
     for (let i = 0; i < screenSquares.length; i++) {
         tearDownScreenSquare(screenSquares[i]);
-        // await delay(1);
     }
 
-
-    // await delay(3000);
     screen.classList.add('start-screen');
-
-    // state.controls.level = 1;
     state.controls.score = 0;
     state.controls.level = 0;
 
@@ -964,24 +795,9 @@ async function endGame() {
     score.textContent = `Score: ${state.controls.score}`
     mobileScore.textContent = state.controls.score;
     state.isAlowedToStartNewGame = true;
-    // }
 
 }
 
-
-
-// const getNumberLength = number => {
-
-//     let length = 0
-//     let n = Math.abs(number)
-
-//     do {
-//       n /=  10
-//       length++
-//     } while (n >= 1)
-
-//     return length
-//   }
 
 function moveDown() {
     // console.log('Moving down + ' + new Date())
@@ -991,7 +807,6 @@ function moveDown() {
         clearInterval(timer)
         state.isGameOver = true;
         console.log('Game Over')
-        // alert("Game Over. Score: " + state.controls.score)
         endGame();
     }
     if (!state.isGameOver && !hasSpaceToMoveDown) {
@@ -1032,12 +847,6 @@ function moveDown() {
         draw(futureCoordinate, 'down')
     }
 }
-
-// function identifyMiddleCellForNextShape(){
-//     console.log('Middle' + middleSquare)
-//     return middleSquare - Math.ceil(state.upcomingTetrisPieces[0].length / 2);
-// }
-
 
 function convertShapeToCoordinates(shape, isText, adjustForAnchor) {
     result = []
@@ -1112,11 +921,7 @@ function getShapeCoordinatesRotated() {
     })
     result.coordinates = adjustedCoordinatesBasedOnAnchor;
     result.shape = rotatedPiece;
-    // console.log(rotatedPiece)
-    // console.log(state.tetrisPiece.currentTetrisPiece)
     return result;
-
-    // console.log(coordinatesOfRotatedPiece)
 }
 
 function canRotate(futureCoordinates) {
@@ -1178,15 +983,10 @@ function draw(coordinates, direction) {
         case 'left':
             state.tetrisPiece.anchorCell = [state.tetrisPiece.anchorCell[0], state.tetrisPiece.anchorCell[1] - 1]
             break;
-        case 'rotate':
-            // console.log(getNextRotationAngle())
-
-            break;
     }
     if (isAnchorDotVisible) {
         drawAnchor()
     }
-
 }
 
 function grabRandomTetrisPiece() {
@@ -1209,136 +1009,6 @@ let previousY = 0;
 let previousActionTimeSeconds = 0;
 let isPreformingAction = false;
 
-
-
-// document.addEventListener("touchmove", ev => {
-
-//     let currentTimeInSeconds = new Date(ev.timeStamp) / 1000;
-
-
-//     let currentX = ev.touches[0].screenX;
-//     let currentY = ev.touches[0].screenY;
-
-//     let diff = Math.abs(currentTimeInSeconds - previousActionTimeSeconds);
-//     console.log(isPreformingAction)
-//     if (diff > 0.5 && !isPreformingAction) {
-//         console.log('Diff ' + diff)
-//         isPreformingAction = true;
-
-
-//         console.log('TSX ' + touchstartX);
-//         console.log('TSY ' + touchstartY);
-
-//         if (previousX != 0 && previousY != 0) {
-//             let Xdiff = Math.abs(currentX - previousX);
-//             let Ydiff = Math.abs(currentY - previousY);
-
-//             if(Xdiff < Ydiff){
-//                 if (touchstartY < currentY) {
-//                     console.log('Down')
-//                     keydown({ key: 'ArrowDown' })
-//                 } 
-//             }
-//             // if (Xdiff > Ydiff) {
-//             //     if (touchstartX < currentX) {
-//             //         console.log('Right')
-//             //         keydown({ key: 'ArrowRight' })
-//             //     } else {
-//             //         keydown({ key: 'ArrowLeft' })
-//             //         console.log('Left')
-//             //     }
-//             // } else {
-//             //     if (touchstartY < currentY) {
-//             //         console.log('Down')
-//             //         keydown({ key: 'ArrowDown' })
-//             //     }
-//             // }
-//             // if(Xdiff > D)
-//             // console.log("Xdiff " + Xdiff);
-//             // console.log("Ydiff " + Ydiff);
-//             // console.log('X ' + ev.touches[0].screenX)
-//             // console.log('Y ' + ev.touches[0].screenY)
-//             previousActionTimeSeconds = new Date(ev.timeStamp) / 1000;
-//             previousX = currentX;
-//             previousY = currentY;
-//             console.log(ev);
-//         }else{
-//             previousX = currentX;
-//             previousY = currentY;
-//         }
-//         isPreformingAction = false;
-
-//     }
-// });
-
-// document.addEventListener('touchstart', e => {
-//     console.log('Touch Start')
-//     touchstartX = e.changedTouches[0].screenX;
-//     touchstartY = e.changedTouches[0].screenY;
-// })
-
-// let buttonMoveLeft = document.getElementById('btn-move-left')
-// let buttonMoveRight = document.getElementById('btn-move-right')
-
-
-// buttonMoveLeft.addEventListener('click', e => {
-//     keydown({ key: 'ArrowLeft' })
-// })
-
-// buttonMoveRight.addEventListener('click', e => {
-//     keydown({ key: 'ArrowRight' })
-// })
-
-// document.addEventListener('touchend', e => {
-
-//     console.log('Touch End')
-
-//     keyup({ key: 'ArrowDown' })
-
-//     touchendX = e.changedTouches[0].screenX;
-//     touchendY = e.changedTouches[0].screenY;
-
-//     previousX = 0;
-//     previousY = 0;
-
-//     let x = Math.abs(touchendX - touchstartX);
-//     let y = Math.abs(touchendY - touchstartY);
-
-
-//     let coordinates;
-//     if (x > y) {
-//         // if (touchendX < touchstartX) {
-//         //     //swiped left
-//         //     state.reachedRightSide = false;
-//         //     coordinates = getShapeCoordinatesMoveLeft();
-//         //     let isAllowedToMoveLeft = canMoveLeft(coordinates);
-//         //     if (isAllowedToMoveLeft) {
-//         //         undraw();
-//         //         draw(coordinates, 'left');
-//         //     }
-//         // } else if (touchendX > touchstartX) {
-//         //     //swiped right
-//         //     state.reachedLeftSide = false;
-//         //     coordinates = getShapeCoordinatesMoveRight();
-//         //     let isAllowedToMoveRight = canMoveRight(coordinates);
-//         //     if (isAllowedToMoveRight) {
-//         //         undraw();
-//         //         draw(coordinates, 'right');
-//         //     }
-//         // }
-//     } else if (y > x) {
-//         // if (touchendY < touchstartY) {
-//         //     //swipedUp
-//         // } else if (touchendY > touchstartY) {
-//         //     //swipeDown
-//         //     clearInterval(timer)
-//         //     timer = setInterval(moveDown, state.speed.fallDownSpeed);
-//         //     state.speed.isArtificiallyIncreased = true;
-//         // }
-//     } else {
-//         // keydown({ key: 'ArrowUp' })
-//     }
-// })
 
 function keyup(event) {
     if (!state.isGameOver) {
@@ -1385,15 +1055,11 @@ function keydown(event) {
                     let coordinatesRotated = rotatedResult.coordinates;
                     let shapeRotated = rotatedResult.shape;
                     let isAllowedToRotate = canRotate(coordinatesRotated);
-                    // console.log()
-                    // console.log(`Allowed rotate ${isAllowedToRotate}`)
                     if (isAllowedToRotate) {
                         state.tetrisPiece.currentTetrisPiece = shapeRotated;
                         undraw();
                         draw(coordinatesRotated, 'rotate')
                     }
-                    // draw(state.tetrisPiece.currentCoordinatesOnGrid, 'up')
-                    // console.log(state.tetrisPiece.currentTetrisPiece)
                     break;
                 case 'ArrowDown':
                 case 's':
@@ -1419,29 +1085,21 @@ function changeMobileLevel(){
     mobileLevelElements[state.controls.level].classList.add('mobile-level-cell-white-disappears')
     if(state.controls.level === 10){
         levelBar.classList.add('mobile-level-rainbow')
-        // for(let i=1;i<=10;i++){
-        //     mobileLevelElements[i].classList.add('mobile-level-rainbow')
-        // }
     }
 }
 
 
 
 function updateGameSpeed() {
-    // console.log("Score " + state.controls.score)
-    // console.log(state.controls.score % 1 == 0)
     if (state.controls.score % 1 == 0) {
         let newSpeed = state.speed.startingSpeed - 75;
         if (newSpeed >= 180 && state.controls.level < 10) {
-            // console.log('Level before ' + state.controls.level)
             state.controls.level = state.controls.level + 1;
             state.speed.startingSpeed = state.speed.startingSpeed - 75;
-            // console.log(`Speed ${state.speed.startingSpeed}`)
             clearInterval(timer)
             timer = setInterval(moveDown, state.speed.startingSpeed)
             changeMobileLevel()
             level.textContent = `Level: ${state.controls.level}`
-            // console.log('Level after ' + state.controls.level)
         }
     }
 }
@@ -1473,7 +1131,6 @@ function startGame() {
 }
 
 screen.addEventListener('click', startGame);
-// startGameButton.addEventListener('click', startGame)
 
 function drawPlayLetters(coordinates) {
     let moveDownNRows = 2;
@@ -1524,6 +1181,8 @@ function drawScoreValue(value) {
                 shape[4] = shape[4].concat([0])
             }
         }
+    }else{
+        alert(`Props to you for scoring ${valueString} but the screen only displays score up to 999 :) `)
     }
 
     let coordinates = convertShapeToCoordinates(shape, true, false);
@@ -1542,17 +1201,3 @@ drawPlayLetters(playGameCoordinates)
 
 window.addEventListener("keydown", keydown)
 window.addEventListener("keyup", keyup)
-
-// async function loop(timestamp) {
-//     // undraw();
-//     draw();
-//     console.log("Updating" + timestamp)
-
-//     down();
-//     await new Promise(resolve => setTimeout(resolve, 2000));
-//     window.requestAnimationFrame(loop)
-//   }
-// loop();
-// window.requestAnimationFrame(loop)
-
-
