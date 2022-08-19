@@ -931,6 +931,7 @@ function canRotate(futureCoordinates) {
             return false;
         } else {
             let gridSquare = board[coordinates[0]][coordinates[1]];
+            if(gridSquare == undefined) return false;
             let nextSquareIsNotMarkedAsOccupied = !gridSquare.classList.contains("screen__square--occupied");
             return nextSquareIsNotMarkedAsOccupied;
         }
@@ -1024,7 +1025,7 @@ function keyup(event) {
 
 function keydown(event) {
     if (!state.isGameOver) {
-        console.log('Processing key')
+        // console.log('Processing key')
         if (buttonsWeCareAbout.includes(event.key)) {
             // console.log(event.key)
             let coordinates;
@@ -1091,7 +1092,7 @@ function changeMobileLevel(){
 
 
 function updateGameSpeed() {
-    if (state.controls.score % 1 == 0) {
+    if (state.controls.score % 3 == 0) {
         let newSpeed = state.speed.startingSpeed - 75;
         if (newSpeed >= 180 && state.controls.level < 10) {
             state.controls.level = state.controls.level + 1;
