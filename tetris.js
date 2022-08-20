@@ -303,6 +303,23 @@ let actionRotate = document.querySelector('.action-rotate');
 
 let actionControls = document.querySelector('.action-controls');
 
+let screen = document.querySelector('.screen');
+
+let mobileLevelElements = {
+    1: document.querySelector('.mobile-level-value-1'),
+    2: document.querySelector('.mobile-level-value-2'),
+    3: document.querySelector('.mobile-level-value-3'),
+    4: document.querySelector('.mobile-level-value-4'),
+    5: document.querySelector('.mobile-level-value-5'),
+    6: document.querySelector('.mobile-level-value-6'),
+    7: document.querySelector('.mobile-level-value-7'),
+    8: document.querySelector('.mobile-level-value-8'),
+    9: document.querySelector('.mobile-level-value-9'),
+    10: document.querySelector('.mobile-level-value-10')
+}
+
+
+
 let timerValue = 0
 let interval;
 
@@ -323,91 +340,9 @@ const mouseRelease = () => {
     timerValue = 0
 }
 
-actionDown.addEventListener('mousedown', e => {
-    e.preventDefault()
-    keydown({ key: 'ArrowDown' })
-})
 
-actionDown.addEventListener('mouseup', e => {
-    e.preventDefault()
-    keyup({ key: 'ArrowDown' })
-});
-
-
-actionDown.addEventListener('touchstart', e => {
-    e.preventDefault()
-    keydown({ key: 'ArrowDown' })
-    console.log('Touch Start ' + new Date() / 1000)
-});
-
-actionDown.addEventListener('touchend', e => {
-    e.preventDefault()
-    keyup({ key: 'ArrowDown' })
-    console.log('Touch End ' + new Date() / 1000)
-});
-
-actionLeft.addEventListener('mousedown', e => {
-    e.preventDefault()
-    keydown('ArrowLeft')
-    mousePress('ArrowLeft');
-});
-actionLeft.addEventListener('mouseup', e => {
-    e.preventDefault()
-    mouseRelease();
-});
-
-actionLeft.addEventListener('touchstart', e => {
-    e.preventDefault()
-    keydown('ArrowLeft')
-    mousePress('ArrowLeft');
-});
-actionLeft.addEventListener('touchend', e => {
-    e.preventDefault()
-    mouseRelease();
-});
-
-actionRight.addEventListener('mousedown', e => {
-    e.preventDefault()
-    keydown('ArrowRight')
-    mousePress('ArrowRight');
-});
-
-actionRight.addEventListener('mouseup', e => {
-    e.preventDefault()
-    mouseRelease();
-});
-
-actionRight.addEventListener('touchstart', e => {
-    e.preventDefault()
-    keydown('ArrowRight')
-    mousePress('ArrowRight');
-});
-
-actionRight.addEventListener('touchend', e => {
-    e.preventDefault()
-    mouseRelease();
-});
-
-
-actionRotate.addEventListener('mousedown', e => {
-    e.preventDefault()
-    keydown({ key: 'ArrowUp' })
-});
-
-actionRotate.addEventListener('mouseup', e => {
-    e.preventDefault()
-    keyup({ key: 'ArrowUp' })
-});
-
-actionRotate.addEventListener('touchstart', e => {
-    e.preventDefault()
-    keydown({ key: 'ArrowUp' })
-});
-
-actionRotate.addEventListener('touchend', e => {
-    e.preventDefault()
-    keyup({ key: 'ArrowUp' })
-});
+resizeCells();
+embedDivsIntoScreen();
 
 let middleSquare = Math.floor(desiredNumberOfColumns / 2);
 
@@ -420,6 +355,7 @@ let state = {
     isAlowedToStartNewGame: true,
     reachedRightSide: false,
     reachedLeftSide: false,
+    justFinishedRotation: true,
 
     speed: {
         startingSpeed: 930,
@@ -442,34 +378,9 @@ let state = {
     upcomingTetrisPieces: []
 }
 
-let screen = document.querySelector('.screen');
-
-let mobileLevelElements = {
-    1: document.querySelector('.mobile-level-value-1'),
-    2: document.querySelector('.mobile-level-value-2'),
-    3: document.querySelector('.mobile-level-value-3'),
-    4: document.querySelector('.mobile-level-value-4'),
-    5: document.querySelector('.mobile-level-value-5'),
-    6: document.querySelector('.mobile-level-value-6'),
-    7: document.querySelector('.mobile-level-value-7'),
-    8: document.querySelector('.mobile-level-value-8'),
-    9: document.querySelector('.mobile-level-value-9'),
-    10: document.querySelector('.mobile-level-value-10')
-}
-
-
 function tearDownLevelBar(level) {
     mobileLevelElements[level].classList.remove('mobile-level-cell-white-disappears')
     mobileLevelElements[level].classList.remove('mobile-level-rainbow')
-}
-
-window.onresize = resizeCells;
-
-
-if (!window.matchMedia('(max-width: 42rem)').matches) {
-    if (WURFL.is_mobile === false || WURFL.form_factor === "Desktop") {
-        actionControls.style.display = 'none';
-    }
 }
 
 
@@ -483,10 +394,7 @@ function resizeCells() {
     }
 }
 
-resizeCells();
-
-
-const embedDivsIntoScreen = () => {
+function embedDivsIntoScreen () {
     let totalCells = desiredNumberOfRows * desiredNumberOfColumns;
 
     for (let i = 0; i < totalCells; i++) {
@@ -496,8 +404,6 @@ const embedDivsIntoScreen = () => {
         screen.appendChild(div);
     }
 }
-
-embedDivsIntoScreen();
 
 let screenSquares = document.querySelectorAll('.screen > div');
 let board = (function () {
@@ -574,8 +480,12 @@ function canMoveDown(futureCoordinates) {
 }
 
 function canMoveRight(futureCoordinates) {
-    if (state.reachedRightSide) {
+    if (state.reachedRightSide && !state.justFinishedRotation) {
         return false;
+    }
+
+    if(state.justFinishedRotation){
+        state.justFinishedRotation = false;
     }
     let maxColumn = 0;
     futureCoordinates.forEach(coordinate => {
@@ -583,6 +493,7 @@ function canMoveRight(futureCoordinates) {
             maxColumn = coordinate[1];
         }
     })
+    
     if (maxColumn === desiredNumberOfColumns) {
         state.reachedRightSide = true;
         return false;
@@ -1070,6 +981,8 @@ function keydown(event) {
                         state.tetrisPiece.currentTetrisPiece = shapeRotated;
                         undraw();
                         draw(coordinatesRotated, 'rotate')
+                        state.justFinishedRotation = true;
+                        state.reachedRightSide = false;
                     }
                     break;
                 case 'ArrowDown':
@@ -1141,7 +1054,7 @@ function startGame() {
     }
 }
 
-screen.addEventListener('click', startGame);
+
 
 function drawPlayLetters(coordinates) {
     let moveDownNRows = 2;
@@ -1205,10 +1118,107 @@ function drawScoreValue(value) {
 }
 
 
+// Event Listeners
+
+actionDown.addEventListener('mousedown', e => {
+    e.preventDefault()
+    keydown({ key: 'ArrowDown' })
+})
+
+actionDown.addEventListener('mouseup', e => {
+    e.preventDefault()
+    keyup({ key: 'ArrowDown' })
+});
 
 
-let playGameCoordinates = convertShapeToCoordinates(playGameSquares, true, false);
-drawPlayLetters(playGameCoordinates)
+actionDown.addEventListener('touchstart', e => {
+    e.preventDefault()
+    keydown({ key: 'ArrowDown' })
+    console.log('Touch Start ' + new Date() / 1000)
+});
+
+actionDown.addEventListener('touchend', e => {
+    e.preventDefault()
+    keyup({ key: 'ArrowDown' })
+    console.log('Touch End ' + new Date() / 1000)
+});
+
+actionLeft.addEventListener('mousedown', e => {
+    e.preventDefault()
+    keydown('ArrowLeft')
+    mousePress('ArrowLeft');
+});
+actionLeft.addEventListener('mouseup', e => {
+    e.preventDefault()
+    mouseRelease();
+});
+
+actionLeft.addEventListener('touchstart', e => {
+    e.preventDefault()
+    keydown('ArrowLeft')
+    mousePress('ArrowLeft');
+});
+actionLeft.addEventListener('touchend', e => {
+    e.preventDefault()
+    mouseRelease();
+});
+
+actionRight.addEventListener('mousedown', e => {
+    e.preventDefault()
+    keydown('ArrowRight')
+    mousePress('ArrowRight');
+});
+
+actionRight.addEventListener('mouseup', e => {
+    e.preventDefault()
+    mouseRelease();
+});
+
+actionRight.addEventListener('touchstart', e => {
+    e.preventDefault()
+    keydown('ArrowRight')
+    mousePress('ArrowRight');
+});
+
+actionRight.addEventListener('touchend', e => {
+    e.preventDefault()
+    mouseRelease();
+});
+
+
+actionRotate.addEventListener('mousedown', e => {
+    e.preventDefault()
+    keydown({ key: 'ArrowUp' })
+});
+
+actionRotate.addEventListener('mouseup', e => {
+    e.preventDefault()
+    keyup({ key: 'ArrowUp' })
+});
+
+actionRotate.addEventListener('touchstart', e => {
+    e.preventDefault()
+    keydown({ key: 'ArrowUp' })
+});
+
+actionRotate.addEventListener('touchend', e => {
+    e.preventDefault()
+    keyup({ key: 'ArrowUp' })
+});
 
 window.addEventListener("keydown", keydown)
 window.addEventListener("keyup", keyup)
+
+screen.addEventListener('click', startGame);
+
+window.onresize = resizeCells;
+
+
+if (!window.matchMedia('(max-width: 42rem)').matches) {
+    if (WURFL.is_mobile === false || WURFL.form_factor === "Desktop") {
+        actionControls.style.display = 'none';
+    }
+}
+
+let playGameCoordinates = convertShapeToCoordinates(playGameSquares, true, false);
+drawPlayLetters(playGameCoordinates)
