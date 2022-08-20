@@ -1130,14 +1130,14 @@ actionDown.addEventListener('mouseup', e => {
 
 
 actionDown.addEventListener('touchstart', e => {
-    actionDown.style.backgroundImage = "url('down-active.png')";
+    actionDown.style.backgroundImage = "url('img/down-active.png')";
     e.preventDefault()
     keydown({ key: 'ArrowDown' })
     // console.log('Touch Start ' + new Date() / 1000)
 });
 
 actionDown.addEventListener('touchend', e => {
-    actionDown.style.backgroundImage = "url('down.png')";
+    actionDown.style.backgroundImage = "url('img/down.png')";
     e.preventDefault()
     keyup({ key: 'ArrowDown' })
     // console.log('Touch End ' + new Date() / 1000)
@@ -1154,13 +1154,13 @@ actionLeft.addEventListener('mouseup', e => {
 });
 
 actionLeft.addEventListener('touchstart', e => {
-    actionLeft.style.backgroundImage = "url('left-active.png')";
+    actionLeft.style.backgroundImage = "url('img/left-active.png')";
     e.preventDefault()
     keydown('ArrowLeft')
     mousePress('ArrowLeft');
 });
 actionLeft.addEventListener('touchend', e => {
-    actionLeft.style.backgroundImage = "url('left.png')";
+    actionLeft.style.backgroundImage = "url('img/left.png')";
     e.preventDefault()
     mouseRelease();
 });
@@ -1177,14 +1177,14 @@ actionRight.addEventListener('mouseup', e => {
 });
 
 actionRight.addEventListener('touchstart', e => {
-    actionRight.style.backgroundImage = "url('right-active.png')";
+    actionRight.style.backgroundImage = "url('img/right-active.png')";
     e.preventDefault()
     keydown('ArrowRight')
     mousePress('ArrowRight');
 });
 
 actionRight.addEventListener('touchend', e => {
-    actionRight.style.backgroundImage = "url('right.png')";
+    actionRight.style.backgroundImage = "url('img/right.png')";
     e.preventDefault()
     mouseRelease();
 });
@@ -1201,13 +1201,13 @@ actionRotate.addEventListener('mouseup', e => {
 });
 
 actionRotate.addEventListener('touchstart', e => {
-    actionRotate.style.backgroundImage = "url('rotate-active.png')";
+    actionRotate.style.backgroundImage = "url('img/rotate-active.png')";
     e.preventDefault()
     keydown({ key: 'ArrowUp' })
 });
 
 actionRotate.addEventListener('touchend', e => {
-    actionRotate.style.backgroundImage = "url('rotate.png')";
+    actionRotate.style.backgroundImage = "url('img/rotate.png')";
     e.preventDefault()
     keyup({ key: 'ArrowUp' })
 });

@@ -203,29 +203,29 @@ html {
 }
 
 .action-left {
-    background-image: url('left.png');
+    background-image: url('img/left.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: auto 100%;
 }
 
 .action-left:active {
-    background-image: url('left-active.png');
+    background-image: url('img/left-active.png');
 }
 
 .action-right {
-    background-image: url('right.png');
+    background-image: url('img/right.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: auto 100%;
 }
 
 .action-right:active {
-    background-image: url('right-active.png');
+    background-image: url('img/right-active.png');
 }
 
 .action-down {
-    background-image: url('down.png');
+    background-image: url('img/down.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: auto 100%;
@@ -233,18 +233,18 @@ html {
 
 
 .action-down:active {
-    background-image: url('down-active.png');
+    background-image: url('img/down-active.png');
 }
 
 .action-rotate {
-    background-image: url('rotate.png');
+    background-image: url('img/rotate.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: auto 100%;
 }
 
 .action-rotate:active {
-    background-image: url('rotate-active.png');
+    background-image: url('img/rotate-active.png');
 }
 
 @media (max-width: 42rem) {
