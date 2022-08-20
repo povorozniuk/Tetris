@@ -142,7 +142,7 @@ html {
     display: none;
 }
 
-.mobile-level {
+.level-bar {
 
     margin-left: 3.5rem;
     display: grid;
@@ -154,7 +154,7 @@ html {
 
 }
 
-.mobile-level>div {
+.level-bar>div {
 
     height: 2rem;
     width: 2rem;
@@ -162,11 +162,11 @@ html {
     border: 1px solid white;
 }
 
-.mobile-level-cell-white-disappears {
+.level-bar-white-cell-disappears-animation {
     animation: whiteBackgroundDisappears 2s forwards;
 }
 
-.mobile-level-rainbow {
+.level-bar-animation {
     background:
         linear-gradient(to bottom, rgb(255, 255, 255) 40%, #ff9900 50%, rgb(251, 255, 0) 80%);
     background-size: 400% 400%;
@@ -297,7 +297,7 @@ html {
         grid-row: 3/4
     }
 
-    .mobile-level {
+    .level-bar {
 
         margin: 0 auto;
         display: grid;
@@ -306,7 +306,7 @@ html {
         height: calc((1rem * 10));
     }
 
-    .mobile-level>div {
+    .level-bar>div {
 
         height: 1rem;
         width: 1rem;

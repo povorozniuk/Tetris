@@ -217,8 +217,6 @@ let scoreValueSquaresMapping = {
     ],
 }
 
-
-
 let tetrisPieces = [tetrisPiece1, tetrisPiece1Reflected, tetrisPiece2, tetrisPiece2Reflected, tetrisPiece3, tetrisPiece4, tetrisPiece5];
 
 function getRandomRotation(shape) {
@@ -306,16 +304,16 @@ let actionControls = document.querySelector('.action-controls');
 let screen = document.querySelector('.screen');
 
 let mobileLevelElements = {
-    1: document.querySelector('.mobile-level-value-1'),
-    2: document.querySelector('.mobile-level-value-2'),
-    3: document.querySelector('.mobile-level-value-3'),
-    4: document.querySelector('.mobile-level-value-4'),
-    5: document.querySelector('.mobile-level-value-5'),
-    6: document.querySelector('.mobile-level-value-6'),
-    7: document.querySelector('.mobile-level-value-7'),
-    8: document.querySelector('.mobile-level-value-8'),
-    9: document.querySelector('.mobile-level-value-9'),
-    10: document.querySelector('.mobile-level-value-10')
+    1: document.querySelector('.level-bar-value-1'),
+    2: document.querySelector('.level-bar-value-2'),
+    3: document.querySelector('.level-bar-value-3'),
+    4: document.querySelector('.level-bar-value-4'),
+    5: document.querySelector('.level-bar-value-5'),
+    6: document.querySelector('.level-bar-value-6'),
+    7: document.querySelector('.level-bar-value-7'),
+    8: document.querySelector('.level-bar-value-8'),
+    9: document.querySelector('.level-bar-value-9'),
+    10: document.querySelector('.level-bar-value-10')
 }
 
 
@@ -379,8 +377,8 @@ let state = {
 }
 
 function tearDownLevelBar(level) {
-    mobileLevelElements[level].classList.remove('mobile-level-cell-white-disappears')
-    mobileLevelElements[level].classList.remove('mobile-level-rainbow')
+    mobileLevelElements[level].classList.remove('level-bar-white-cell-disappears-animation')
+    mobileLevelElements[level].classList.remove('level-bar-animation')
 }
 
 
@@ -394,7 +392,7 @@ function resizeCells() {
     }
 }
 
-function embedDivsIntoScreen () {
+function embedDivsIntoScreen() {
     let totalCells = desiredNumberOfRows * desiredNumberOfColumns;
 
     for (let i = 0; i < totalCells; i++) {
@@ -484,7 +482,7 @@ function canMoveRight(futureCoordinates) {
         return false;
     }
 
-    if(state.justFinishedRotation){
+    if (state.justFinishedRotation) {
         state.justFinishedRotation = false;
     }
     let maxColumn = 0;
@@ -493,7 +491,7 @@ function canMoveRight(futureCoordinates) {
             maxColumn = coordinate[1];
         }
     })
-    
+
     if (maxColumn === desiredNumberOfColumns) {
         state.reachedRightSide = true;
         return false;
@@ -1003,12 +1001,12 @@ function updateGameStats() {
     mobileScore.textContent = state.controls.score;
 }
 
-let levelBar = document.querySelector('.mobile-level')
+let levelBar = document.querySelector('.level-bar')
 
 function changeMobileLevel() {
-    mobileLevelElements[state.controls.level].classList.add('mobile-level-cell-white-disappears')
+    mobileLevelElements[state.controls.level].classList.add('level-bar-white-cell-disappears-animation')
     if (state.controls.level === 10) {
-        levelBar.classList.add('mobile-level-rainbow')
+        levelBar.classList.add('level-bar-animation')
     }
 }
 
