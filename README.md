@@ -118,9 +118,10 @@ let timer = setInterval(moveDown, state.speed.startingSpeed) //speed is in milli
 ```
 
 
-This is what moving a Tetris piece looks like in slow motion with indexes added for better visibility
+This is what it looks like to move down a tetris piece in slow motion with indexes added for visibility
+
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/29631366/185751605-9c48285c-809c-4a7a-b27d-af4b5160ea1f.gif">
+  <img src="https://user-images.githubusercontent.com/29631366/185755290-421da61c-2515-4241-a642-e9150d356a35.gif">
 </p>
 
