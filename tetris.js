@@ -325,7 +325,7 @@ const mousePress = (direction) => {
     keydown({ key: direction });
     interval = setInterval(() => {
         timerValue++
-        console.log(timerValue)
+        // console.log(timerValue)
         if (timerValue > 3) {
             keydown({ key: direction })
         }
@@ -725,7 +725,7 @@ function moveDown() {
     if (!state.isGameOver && state.tetrisPiece.anchorCell[0] === 0 && !hasSpaceToMoveDown) {
         clearInterval(timer)
         state.isGameOver = true;
-        console.log('Game Over')
+        // console.log('Game Over')
         endGame();
     }
     if (!state.isGameOver && !hasSpaceToMoveDown) {
@@ -1133,14 +1133,14 @@ actionDown.addEventListener('touchstart', e => {
     actionDown.style.backgroundImage = "url('down-active.png')";
     e.preventDefault()
     keydown({ key: 'ArrowDown' })
-    console.log('Touch Start ' + new Date() / 1000)
+    // console.log('Touch Start ' + new Date() / 1000)
 });
 
 actionDown.addEventListener('touchend', e => {
     actionDown.style.backgroundImage = "url('down.png')";
     e.preventDefault()
     keyup({ key: 'ArrowDown' })
-    console.log('Touch End ' + new Date() / 1000)
+    // console.log('Touch End ' + new Date() / 1000)
 });
 
 actionLeft.addEventListener('mousedown', e => {
