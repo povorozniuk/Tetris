@@ -217,6 +217,8 @@ let scoreValueSquaresMapping = {
     ],
 }
 
+
+
 let tetrisPieces = [tetrisPiece1, tetrisPiece1Reflected, tetrisPiece2, tetrisPiece2Reflected, tetrisPiece3, tetrisPiece4, tetrisPiece5];
 
 function getRandomRotation(shape) {
@@ -298,6 +300,8 @@ let actionDown = document.querySelector('.action-down');
 let actionLeft = document.querySelector('.action-left');
 let actionRight = document.querySelector('.action-right');
 let actionRotate = document.querySelector('.action-rotate');
+
+let actionControls = document.querySelector('.action-controls');
 
 let timerValue = 0
 let interval;
@@ -454,20 +458,26 @@ let mobileLevelElements = {
 }
 
 
-function tearDownLevelBar(level){
+function tearDownLevelBar(level) {
     mobileLevelElements[level].classList.remove('mobile-level-cell-white-disappears')
     mobileLevelElements[level].classList.remove('mobile-level-rainbow')
 }
 
-
 window.onresize = resizeCells;
+
+
+if (!window.matchMedia('(max-width: 42rem)').matches) {
+    if (WURFL.is_mobile === false || WURFL.form_factor === "Desktop") {
+        actionControls.style.display = 'none';
+    }
+}
 
 
 function resizeCells() {
     if (window.matchMedia('(max-width: 42rem)').matches) {
         screen.style.gridTemplateColumns = `repeat(${desiredNumberOfColumns}, 1.3rem)`;
         screen.style.gridTemplateRows = `repeat(${desiredNumberOfRows}, 1.3rem)`;
-    }else{
+    } else {
         screen.style.gridTemplateColumns = `repeat(${desiredNumberOfColumns}, 2rem)`;
         screen.style.gridTemplateRows = `repeat(${desiredNumberOfRows}, 2rem)`;
     }
@@ -745,7 +755,7 @@ async function endGame() {
     cleanUpNextFigureBoard(nextFigureArea3)
     await delay(delayMs)
 
-    for(let i=10;i>0;i--){
+    for (let i = 10; i > 0; i--) {
         tearDownLevelBar(i);
         await delay(delayMs)
     }
@@ -931,7 +941,7 @@ function canRotate(futureCoordinates) {
             return false;
         } else {
             let gridSquare = board[coordinates[0]][coordinates[1]];
-            if(gridSquare == undefined) return false;
+            if (gridSquare == undefined) return false;
             let nextSquareIsNotMarkedAsOccupied = !gridSquare.classList.contains("screen__square--occupied");
             return nextSquareIsNotMarkedAsOccupied;
         }
@@ -1082,9 +1092,9 @@ function updateGameStats() {
 
 let levelBar = document.querySelector('.mobile-level')
 
-function changeMobileLevel(){
+function changeMobileLevel() {
     mobileLevelElements[state.controls.level].classList.add('mobile-level-cell-white-disappears')
-    if(state.controls.level === 10){
+    if (state.controls.level === 10) {
         levelBar.classList.add('mobile-level-rainbow')
     }
 }
@@ -1182,7 +1192,7 @@ function drawScoreValue(value) {
                 shape[4] = shape[4].concat([0])
             }
         }
-    }else{
+    } else {
         alert(`Props to you for scoring ${valueString} but the screen only displays score up to 999 :) `)
     }
 
