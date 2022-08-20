@@ -31,7 +31,7 @@ Mobile/Tablet:
 
 ## Development details
 
-I used the grid to create the main playing area. It has 13 columns and 24 rows. 13 x 24 gives us 132 cells. If we add the numbers this is what the playing field would look like:
+I used the grid to create the main playing area. It has 13 columns and 24 rows. 13 x 24 gives us 312 cells. If we add the numbers this is what the playing field would look like:
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/29631366/185746027-476393ba-8137-4ed9-9b69-2f5727fe8a45.gif">
