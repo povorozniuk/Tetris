@@ -69,6 +69,12 @@ let tetrisPiece = [
 
 Using this approach, I could now define any shapes I wanted, including words ["PLAY"](https://github.com/povorozniuk/Tetris/blob/main/tetris.js#L60-L86), ["SCORE"](https://github.com/povorozniuk/Tetris/blob/main/tetris.js#L116-L145), and ["GAME OVER"](https://github.com/povorozniuk/Tetris/blob/main/tetris.js#L89-L114)
 
+
+![1](https://user-images.githubusercontent.com/29631366/185754918-b9985206-f425-44cd-a11b-851ecc75feb7.png)
+![973](https://user-images.githubusercontent.com/29631366/185754919-8aa40ce4-6edc-4a64-bb08-f91c5b281f5c.png)
+![score](https://user-images.githubusercontent.com/29631366/185754920-20199591-8d1a-4d3a-a3e4-3d6ed0760965.png)
+![game-over](https://user-images.githubusercontent.com/29631366/185754921-88d8d2fc-4a98-4657-862d-d64fa1cc4332.png)
+
 ### Rotating Tetris pieces
 
 instead of declaring each rotation of a Tetris piece, I created a [function](https://github.com/povorozniuk/Tetris/blob/main/tetris.js#L231-L270) to rotate a 2-dimensional array anti-clockwise. Here is an example of such a rotation
